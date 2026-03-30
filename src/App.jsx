@@ -37,6 +37,11 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import FeedPage from './pages/FeedPage';
+import WishlistPage from './pages/WishlistPage';
+import ProfilePage from './pages/ProfilePage';
+import ExplorePage from './pages/ExplorePage';
+import MessagesPage from './pages/MessagesPage';
+import AddReviewPage from './pages/AddReviewPage';
 
 export default function App() {
   return (
@@ -47,6 +52,11 @@ export default function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/feed"   element={<FeedPage />} />
         <Route path="*"       element={<Navigate to="/" replace />} />
+        <Route path="/wishlist" element={<WishlistPage/>} />
+        <Route path="/profile" element={<ProfilePage/>} />
+        <Route path="/explore" element={<ExplorePage />} /> 
+        <Route path="/messages" element={<MessagesPage />} />
+        <Route path="/add-review" element={<AddReviewPage />} />
       </Routes>
     </BrowserRouter>
   );
