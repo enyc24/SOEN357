@@ -7,16 +7,6 @@ const STATS = [
   { value: 2,  label: 'Visited this month' },
 ];
 
-const USER = {
-  initials: 'JD',
-  name: 'Jamie Dupont',
-  city: 'Montreal',
-  since: 2023,
-  reviews: 34,
-  friends: 3,
-  saved: 12,
-};
-
 const FILTERS = ['All saved', 'Shared with friends', 'Fine dining', 'Casual', 'Near me'];
 
 const RESTAURANTS = [
