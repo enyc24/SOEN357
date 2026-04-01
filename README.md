@@ -11,7 +11,7 @@ Make sure you have **Node.js 18+** installed.
 npm install
 
 # 2. Start the development server
-npm start
+npm run dev
 ```
 
 The app will open at **http://localhost:5175**
