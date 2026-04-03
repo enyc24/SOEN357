@@ -1,63 +1,7 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
-
-const latestReviews = [
-  {
-    id: 1,
-    emoji: '🍜',
-    emojiBg: '#FFF6DD',
-    name: 'Pho Nguyen',
-    category: 'Vietnamese',
-    neighborhood: 'Downtown',
-    stars: 5,
-    quote: 'The broth takes 24 hours, you can taste it.',
-    tag: [{ label: 'Must try', color: '#BA7517', bg: '#FEF0D8' },
-          { label: 'Authentic', color: '#4CAF50', bg: '#E8F5E9' }],
-    friends: [
-      { initials: 'DS', color: '#7B9EE0' },
-    ],
-    friendsText: 'David S',
-    time: '3 hours ago',
-  },
-  {
-    id: 2,
-    emoji: '🍕',
-    emojiBg: '#EFF8EC',
-    name: 'Regina Pizzeria',
-    category: 'Italian',
-    neighborhood: 'Brossard',
-    stars: 5,
-    quote: 'Great wood-fire crust. Go early or wait 45 min.',
-    tag: [{ label: 'Authentic', color: '#4CAF50', bg: '#E8F5E9' }],
-    friends: [
-      { initials: 'JK', color: '#7BB87B' },
-    ],
-    friendsText: 'Jordan K',
-    time: '1 day ago',
-  },
-  {
-    id: 3,
-    emoji: '🍣',
-    emojiBg: '#EBF3FF',
-    name: 'Manga Bistro',
-    category: 'Japanese',
-    neighborhood: 'Downtown',
-    stars: 4,
-    quote: 'Sushi was ndl. Saw some bugs flying around.',
-    tag: [{ label: 'New find', color: '#BA7517', bg: '#FEF0D8' }],
-    friends: [
-      { initials: 'AL', color: '#7B9EE0' },
-    ],
-    friendsText: 'Alex L',
-    time: '2 weeks ago',
-  },
-];
-
-const wishlists = [
-  { id: 1, name: 'Patty Slaps', details: 'Saved by Jordan K.', badge: 'Wishlist', icon: '🍔' },
-  { id: 2, name: 'Cafe Myriade', details: 'Saved by Sophia M.', badge: 'Wishlist', icon: '☕' },
-  { id: 3, name: 'Icono Glace', details: 'Saved by Alex L.', badge: 'Wishlist', icon: '🍨' },
-];
+import { latestReviews, wishlists } from '../data/restaurantData';
 
 function StarRating({ rating, max = 5 }) {
     return (
@@ -117,17 +61,30 @@ function FriendAvatar({ initials, color }) {
   );
 }
 
-function ReviewCard({ review }) {
+function ReviewCard({ review, onClick }) {
   return (
-    <div style={{
-      flex: '1 1 300px',
-      minWidth: 280,
-      background: '#fff',
-      borderRadius: 12,
-      overflow: 'hidden',
-      border: '1px solid #EDE8E0',
-      boxShadow: '0 1px 6px rgba(0,0,0,0.08)',
-    }}>
+    <div
+      onClick={onClick}
+      style={{
+        flex: '1 1 300px',
+        minWidth: 280,
+        background: '#fff',
+        borderRadius: 12,
+        overflow: 'hidden',
+        border: '1px solid #EDE8E0',
+        boxShadow: '0 1px 6px rgba(0,0,0,0.08)',
+        cursor: 'pointer',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.transform = 'translateY(-2px)';
+        e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.15)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.boxShadow = '0 1px 6px rgba(0,0,0,0.08)';
+      }}
+    >
       <div style={{
         background: review.emojiBg,
         height: 100,
@@ -208,12 +165,12 @@ function WishlistCard({ item }) {
 }
 
 export default function FeedPage() {
+  const navigate = useNavigate();
+
   return (
     <Layout>
-      <div style={{ padding: '40px 60px', maxWidth: 1200, margin: '0 auto' }}>
-        <h1 style={{ fontSize: 24, color: '#2C2C2A', marginBottom: 8 }}>
-          Your friends' recent eats
-        </h1>
+      <div style={{ padding: '24px 30px', maxWidth: 1350, margin: '0 auto' }}>
+        <h1 style={{ fontSize: 24, color: '#2C2C2A', marginBottom: 8 }}>Your friends' recent eats</h1>
         <p style={{ fontSize: 14, color: '#888780', marginBottom: 24 }}>
           Explore the latest reviews and wishlists from your network.
         </p>
@@ -222,7 +179,11 @@ export default function FeedPage() {
           <h2 style={{ fontSize: 20, color: '#2C2C2A', marginBottom: 16 }}>Latest reviews</h2>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
             {latestReviews.map(review => (
-              <ReviewCard key={review.id} review={review} />
+              <ReviewCard
+                key={review.id}
+                review={review}
+                onClick={() => navigate(`/restaurant/${review.id}`, { state: { review } })}
+              />
             ))}
           </div>
         </section>

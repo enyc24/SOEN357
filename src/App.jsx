@@ -42,6 +42,7 @@ import ProfilePage from './pages/ProfilePage';
 import ExplorePage from './pages/ExplorePage';
 import MessagesPage from './pages/MessagesPage';
 import AddReviewPage from './pages/AddReviewPage';
+import RestaurantPage from './pages/RestaurantPage';
 
 export default function App() {
   return (
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/login"  element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/feed"   element={<FeedPage />} />
+        <Route path="/restaurant/:id" element={<RestaurantPage />} />
         <Route path="*"       element={<Navigate to="/" replace />} />
         <Route path="/wishlist" element={<WishlistPage/>} />
         <Route path="/profile" element={<ProfilePage/>} />
